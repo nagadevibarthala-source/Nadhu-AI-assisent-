@@ -1,3 +1,5 @@
 SpeechRecognition
 pyttsx3
 pyaudio
+python-dotenv
+google-gemai
