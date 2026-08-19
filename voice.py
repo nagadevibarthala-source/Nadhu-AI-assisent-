@@ -113,7 +113,38 @@ def should_handle(command):
         "exit"
     ]
 
-    return any(keyword in command for keyword in keywords)
+def should_handle(command):
+    command = command.lower()
+
+    if any(word in command for word in WAKE_WORDS):
+        return True
+
+    keywords = [
+        "youtube",
+        "chatgpt",
+        "whatsapp",
+        "linkedin",
+        "chrome",
+        "browser",
+        "time",
+        "date",
+        "day",
+        "search",
+        "roadmap",
+        "notepad",
+        "calculator",
+        "vscode",
+        "vs code",
+        "battery",
+        "internet",
+        "motivate me",
+        "python question",
+        "dsa question",
+        "stop",
+        "exit"
+    ]
+
+    return any(keyword in command for keyword in keywords)    return any(keyword in command for keyword in keywords)
 # =========================
 # HANDLE COMMANDS
 # =========================
