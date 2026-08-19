@@ -533,91 +533,92 @@ def handle_command(command):
         )
 
     return True
-
 # =========================
 # START ASSISTANT
 # =========================
 
-talk(
-    "Hello Naga Devi. Nadhu is ready"
-)
+def run_assistant():
 
-# =========================
-# MAIN LOOP
-# =========================
+    talk(
+        "Hello Naga Devi. Nadhu is ready"
+    )
 
-while True:
+    while True:
 
-    try:
+        try:
 
-        # reset recognizer
-        listener = sr.Recognizer()
+            listener = sr.Recognizer()
 
-        with sr.Microphone() as source:
+            with sr.Microphone() as source:
+
+                print(
+                    "Listening..."
+                )
+
+                listener.adjust_for_ambient_noise(
+                    source,
+                    duration=0.5
+                )
+
+                voice = listener.listen(
+                    source,
+                    timeout=None,
+                    phrase_time_limit=None
+                )
+
+            command = listener.recognize_google(
+                voice,
+                language="en-IN"
+            ).lower()
 
             print(
-                "Listening..."
-            )
-
-            listener.adjust_for_ambient_noise(
-                source,
-                duration=0.5
-            )
-
-            voice = listener.listen(
-                source,
-                timeout=None,
-                phrase_time_limit=None
-            )
-
-        command = listener.recognize_google(
-            voice,
-            language="en-IN"
-        ).lower()
-
-        print(
-            "You said:",
-            command
-        )
-
-       if should_handle(command):
-            keep_running = handle_command(
+                "You said:",
                 command
             )
 
-            if keep_running is False:
-                break
+            if should_handle(command):
 
-    except sr.WaitTimeoutError:
+                keep_running = handle_command(
+                    command
+                )
 
-        print(
-            "No speech detected"
-        )
+                if keep_running is False:
+                    break
 
-    except sr.UnknownValueError:
+        except sr.WaitTimeoutError:
 
-        print(
-            "Could not understand audio"
-        )
+            print(
+                "No speech detected"
+            )
 
-    except sr.RequestError as e:
+        except sr.UnknownValueError:
 
-        print(
-            "Speech service error:",
-            e
-        )
+            print(
+                "Could not understand audio"
+            )
 
-    except KeyboardInterrupt:
+        except sr.RequestError as e:
 
-        talk(
-            "Goodbye Naga Devi"
-        )
+            print(
+                "Speech service error:",
+                e
+            )
 
-        break
+        except KeyboardInterrupt:
 
-    except Exception as e:
+            talk(
+                "Goodbye Naga Devi"
+            )
 
-        print(
-            "Unexpected error:",
-            e
-        )
+            break
+
+        except Exception as e:
+
+            print(
+                "Unexpected error:",
+                e
+            )
+
+
+if __name__ == "__main__":
+    run_assistant()
