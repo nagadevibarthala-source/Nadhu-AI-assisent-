@@ -12,5 +12,9 @@ response = client.models.generate_content(
     model="gemini-2.5-flash",
     contents="Hi Gemini"
 )
+from voice import run_assistant
 
-print(response.text)
+
+if __name__ == "__main__":
+    run_assistant()
+
