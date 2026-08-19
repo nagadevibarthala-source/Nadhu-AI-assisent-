@@ -607,11 +607,7 @@ while True:
             command
         )
 
-        if any(
-            word in command
-            for word in WAKE_WORDS
-        ):
-
+       if should_handle(command):
             keep_running = handle_command(
                 command
             )
